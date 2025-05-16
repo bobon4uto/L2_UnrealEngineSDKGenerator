@@ -4,15 +4,25 @@
 
 class Generator : public IGenerator
 {
+
+	VirtualFunctionPatterns  pat = VirtualFunctionPatterns();
+	std::tuple<const char*, const char*, size_t, const char*> a;
 public:
 	bool Initialize(void* module) override
-	{
+	{/*
 		virtualFunctionPattern["Class Core.Object"] = {
-			{ "\xA1\x00\x00\x00\x00\x85\xC0\x53\x56\x57\x8B", "x????xxxxxx", 0x200, R"(	inline void ProcessEvent(class UFunction* function, void* parms)
+			{"\x60\xC8\x15\x10","xxxx",0x200, R"(	inline void ProcessEvent(class UFunction* function, void* parms)
+	{
+		return GetVFunction<void(__thiscall *)(UObject*, class UFunction*, void*, void*)>(this, %d)(this, function, parms, nullptr);
+	})" }
+		};*/
+		virtualFunctionPattern["Class Core.Object"] = {
+			{"\x55\x00\x00\x00\x00\x68\x08\x69\x17\x10","x????xxxxx",0x1CF, R"(	inline void ProcessEvent(class UFunction* function, void* parms)
 	{
 		return GetVFunction<void(__thiscall *)(UObject*, class UFunction*, void*, void*)>(this, %d)(this, function, parms, nullptr);
 	})" }
 		};
+
 
 		predefinedStaticMembers["Class Core.Object"] = {
 			{ "TArray<UObject*>*", "GObjects" }
@@ -145,22 +155,22 @@ public:
 
 	std::string GetGameName() const override
 	{
-		return "Unreal Tournament 2004";
+		return "Lineage 2";
 	}
 
 	std::string GetGameNameShort() const override
 	{
-		return "UT2004";
+		return "L2";
 	}
 
 	std::string GetGameVersion() const override
 	{
-		return "3369";
+		return "Gracia Final";
 	}
 
 	std::string GetNamespaceName() const override
 	{
-		return "Classes";
+		return "L2_SDK";
 	}
 
 	std::vector<std::string> GetIncludes() const override
@@ -392,8 +402,8 @@ struct FScriptDelegate
 
 	std::string GetBasicDefinitions() const override
 	{
-		return R"(TArray<FNameEntry*>* FName::GNames = nullptr;
-TArray<UObject*>* UObject::GObjects = nullptr;)";
+		return R"(TArray<FNameEntry*>* FName::GNames = (TArray<FNameEntry*>*)0x10228B54;
+TArray<UObject*>* UObject::GObjects = (TArray<UObject*>*)0x10228B78;)";
 	}
 };
 

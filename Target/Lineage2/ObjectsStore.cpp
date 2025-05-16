@@ -9,7 +9,7 @@ TArray<UObject*>* GlobalObjects = nullptr;
 
 bool ObjectsStore::Initialize()
 {
-	auto address = FindPattern(GetModuleHandleW(L"core.dll"), reinterpret_cast<const unsigned char*>("\x8B\x0D\x00\x00\x00\x00\x8B\x04\x81\xC3\x33\xC0\xC3"), "xx????xxxxxxx");
+	auto address = FindPattern(GetModuleHandleW(L"core.dll"), reinterpret_cast<const unsigned char*>("\x8B\x0D\x78\x8B\x22\x10\x8B\x04\x81"), "xxxxxxxxx");
 	if (address == -1)
 	{
 		return false;

@@ -76,179 +76,202 @@ struct FScriptDelegate
 
 class UClass;
 
+//should visit again later
 class UObject
 {
 public:
 	FPointer		VfTableObject;
 	int				InternalIndex;
-	char			UnknownData[20];
-	UObject*		Outer;
+	char			UnknownData16[16];
+	//DWORD			ZeroUnknownData1;
+	//DWORD			ZeroUnknownData2;
+	//DWORD			PossiblyPTR;
+	//DWORD			MinusOneUnknownData3;
+	UObject* Outer;
 	int				Flags;
 	FName			Name;
-	UClass*			Class;
+	UClass* Class;
+	char			UnknownData12[12];
+	//DWORD			NonZeroUnknownData3;
+	//DWORD			ZeroUnknownData4;
+	//DWORD			PossiblyZeroUnknownData5;
+//DWORD			SometimesPTR; //maybe Archetype?
+//char			UnknownData[24];
+
 };
 
-	class UField : public UObject
-	{
-	public:
-		UField*			SuperField;
-		UField*			Next;
-		UField*			HashNext;
-	};
+class UField : public UObject
+{
+public:
+	UField* SuperField;
+	UField* Next;
+	UField* HashNext;
 
-		class UEnum : public UField
-		{
-		public:
-			TArray<FName>	Names;
-		};
+	//UField*			SuperField;
+};
 
-		class UConst : public UField
-		{
-		public:
-			FString			Value;
-		};
+class UEnum : public UField
+{
+public:
+	TArray<FName>	Names;
+};
 
-		class UStruct : public UField
-		{
-		public:
-			char			UnknownData00[0x08];
-			UField*			Children;
-			unsigned long	PropertySize;
-			char			UnknownData01[0x3C];
-		};
+class UConst : public UField
+{
+public:
+	FString			Value;
+};
 
-			class UScriptStruct : public UStruct
-			{
-			public:
-				char			UnknownData00[0x1C];
-			};
+class UStruct : public UField
+{
+public:
+	int				always1;
+	int				always12;
+	//char			UnknownData00[0x0C];
+	//unsigned long	PropertySize;
+	UField* Children;
+	unsigned long	PropertySize;
+	//char			UnknownData01[0x44];
+};
 
-			class UFunction : public UStruct
-			{
-			public:
-				int32_t			FunctionFlags;
-				int16_t			iNative;
-				char			UnknownData00[2];
-				int8_t			OperPrecedence;
-				int8_t			NumParms;
-				int16_t			ParmsSize;
-				int16_t			ReturnValueOffset;
-				char			UnknownData01[2];
-				void*			Func;
-			};
+class UScriptStruct : public UStruct
+{
+public:
+	char			UnknownData00[0x1C];
+};
 
-			class UState : public UStruct
-			{
-			public:
-				char			UnknownData00[0x48];
-			};
+class UFunction : public UStruct
+{
+public:
+	int32_t			FunctionFlags;
+	int16_t			iNative;
+	char			UnknownData00[2];
+	int8_t			OperPrecedence;
+	int8_t			NumParms;
+	int16_t			ParmsSize;
+	int16_t			ReturnValueOffset;
+	char			UnknownData01[2];
+	void* Func;
+};
 
-				class UClass : public UState
-				{
-				public:
-					char			UnknownData00[136];
-					UObject*		DefaultObject;
-					char			UnknownData01[112];
-				};
+class UState : public UStruct
+{
+public:
+	char			UnknownData00[980];
+};
 
-		class UProperty : public UField
-		{
-		public:
-			unsigned long	ArrayDim;
-			unsigned long	ElementSize;
-			FQWord			PropertyFlags;
-			unsigned short	RepOffset;
-			unsigned short	RepIndex;
-			unsigned long	Offset;
-			UProperty*		PropertyLinkNext;
-			UProperty*		ConfigLinkNext;
-			UProperty*		ConstructorLinkNext;
-			UProperty*		RepOwner;
-			char			UnknownData[0x10];
-		};
+class UClass : public UState
+{
+public:
+	char			UnknownData00[136];
+	UObject* DefaultObject;
+	char			UnknownData01[0x70];
+};
 
-			class UPointerProperty : public UProperty
-			{
-			public:
+class UProperty : public UField
+{
+public:
+	//char			UnknownData[0x0C];
+	unsigned long	ArrayDim;
+	unsigned long	ElementSize;
+	FQWord			PropertyFlags;
+	unsigned short	RepOffset; //only 2 bytes...
+	unsigned short	RepIndex;
+	unsigned long	Offset;
+	UProperty* PropertyLinkNext;
+	UProperty* ConfigLinkNext;
+	UProperty* ConstructorLinkNext;
+	UProperty* RepOwner;
+	char			UnknownData[0x18];
+};
 
-			};
+class UPointerProperty : public UProperty
+{
+public:
 
-			class UByteProperty : public UProperty
-			{
-			public:
-				UEnum*			Enum;
-			};
+};
 
-			class UIntProperty : public UProperty
-			{
-			public:
+class UByteProperty : public UProperty
+{
+public:
+	UEnum* Enum;
+};
 
-			};
+class UIntProperty : public UProperty
+{
+public:
 
-			class UFloatProperty : public UProperty
-			{
-			public:
+};
 
-			};
+class UFloatProperty : public UProperty
+{
+public:
 
-			class UBoolProperty : public UProperty
-			{
-			public:
-				unsigned long		BitMask;
-			};
+};
 
-			class UObjectProperty : public UProperty
-			{
-			public:
-				UClass*				PropertyClass;
-				UObjectProperty*	NextReference;
-			};
+class UBoolProperty : public UProperty
+{
+public:
+	unsigned long		BitMask;
+};
 
-				class UClassProperty : public UObjectProperty
-				{
-				public:
-					UClass*				MetaClass;
-				};
+class UObjectProperty : public UProperty
+{
+public:
+	int					someRefLinkData;
+	UClass* PropertyClass;
+	UObjectProperty* NextReference;
+};
 
-			class UInterfaceProperty : public UProperty
-			{
-			public:
-				UClass*				InterfaceClass;
-			};
+class UClassProperty : public UObjectProperty
+{
+public:
+	UClass* MetaClass;
+};
 
-			class UNameProperty : public UProperty
-			{
-			public:
+class UInterfaceProperty : public UProperty
+{
+public:
+	UClass* InterfaceClass;
+};
 
-			};
+class UNameProperty : public UProperty
+{
+public:
 
-			class UStructProperty : public UProperty
-			{
-			public:
-				UStruct*			Struct;
-			};
+};
 
-			class UStrProperty : public UProperty
-			{
-			public:
+class UStructProperty : public UProperty
+{
+public:
+	int					someRefLinkData;
+	UStruct* Struct;
+};
 
-			};
+class UStrProperty : public UProperty
+{
+public:
 
-			class UArrayProperty : public UProperty
-			{
-			public:
-				UProperty*			Inner;
-			};
+};
 
-			class UMapProperty : public UProperty
-			{
-			public:
-				UProperty*			KeyProp;
-				UProperty*			ValueProp;
-			};
+class UArrayProperty : public UProperty
+{
+public:
+	int					someRefLinkData;
+	UProperty* Inner;
+};
 
-			class UDelegateProperty : public UProperty
-			{
-			public:
-				UFunction*			SignatureFunction;
-			};
+class UMapProperty : public UProperty
+{
+public:
+	int					someRefLinkData;
+	UProperty* KeyProp;
+	UProperty* ValueProp;
+};
+
+class UDelegateProperty : public UProperty
+{
+public:
+	int					someRefLinkData;
+	UFunction* SignatureFunction;
+};
