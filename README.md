@@ -1,3 +1,29 @@
+# Lineage 2 SDK generation
+Compile Lineage2 project as x86 dll in release mod (default), inject it into l2.exe using ExtremeInjector, or alternatives. The default Dump path is C:/SDK_GEN
+
+Right now a work in progress, can generate SDK of Lineage 2 Gracia Final with basic, core and engine working(other packages not tested yet). (If you have trouble with MACROS like "CreateWindow", 
+```cpp
+#pragma push_macro("CreateWindow")
+#undef CreateWindow
+	class UUWindowWindow* CreateWindow(class UClass* WndClass, float X, float Y, float W, float H, class UUWindowWindow* OwnerW, bool bUnique, const struct FName& ObjectName);
+#pragma pop_macro("CreateWindow")
+
+```
+)
+
+Скомпилируйте проект Lineage2 как x86 dll в release (стандартные настройки), инджектите в l2.exe используя ExtremeInjector или аналоги. Стандартный путь Дампа - C:/SDK_GEN
+
+Пока еще в разработке, пможно генерировать SDK линейки версии Gracia Final с рабочими пакетами basic, core and engine (другие пакеты особо не тестировал). (Если проблема с МАКРОСАМИ по типу "CreateWindow", 
+```cpp
+#pragma push_macro("CreateWindow")
+#undef CreateWindow
+	class UUWindowWindow* CreateWindow(class UClass* WndClass, float X, float Y, float W, float H, class UUWindowWindow* OwnerW, bool bUnique, const struct FName& ObjectName);
+#pragma pop_macro("CreateWindow")
+
+```
+)
+
+
 # How to generate a new SDK?
 To generate a new SDK you need to follow these steps.
 
