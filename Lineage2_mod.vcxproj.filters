@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="SDK">
+      <UniqueIdentifier>{826f3491-b6d2-426b-a7d8-cdf65e080a8a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Target\Lineage2_mod\Main.cpp" />
+    <ClCompile Include="Target\Lineage2_mod\SDK\L2_Basic.cpp">
+      <Filter>SDK</Filter>
+    </ClCompile>
+    <ClCompile Include="Target\Lineage2_mod\SDK\L2_Core_functions.cpp">
+      <Filter>SDK</Filter>
+    </ClCompile>
+    <ClCompile Include="Target\Lineage2_mod\SDK\L2_Engine_functions.cpp">
+      <Filter>SDK</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Target\Lineage2_mod\SDK.hpp" />
+  </ItemGroup>
+</Project>
