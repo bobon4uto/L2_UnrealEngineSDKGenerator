@@ -1,4 +1,33 @@
 # Lineage 2 SDK generation
+ABANDOED
+sorry for that it just takes too much time and effort. still you can use it it somewhat works. 
+I was trying to get hooks working, but got nowhere, still i think detours and code similar to this should work?
+
+```cpp
+typedef void(__thiscall* TUFunction)(L2_SDK::UObject*, L2_SDK::FFrame&, void* const);
+
+L2_SDK::UFunction* fnAFoxPC_PlayerTick = nullptr;
+TUFunction PlayerTick_Original = nullptr;
+TUFunction p_tk_hook = nullptr;
+
+void __stdcall hkPlayerTick(L2_SDK::FFrame& Stack, void* const pResult)
+{
+	// get object pointer from ecx
+	L2_SDK::UObject* pThis = nullptr;
+	_asm mov pThis, ecx;
+
+	Beep(1000, 500);
+	// confirm event is hooked
+
+	// execute original event (works like expected)
+	SlimDetoursInlineHook(FALSE, (PVOID*)&p_tk_hook, hkPlayerTick); // have no clue how to call original otherwise
+	PlayerTick_Original(pThis, Stack, pResult);
+	SlimDetoursInlineHook(TRUE, (PVOID*)&p_tk_hook, hkPlayerTick);
+
+}
+
+```
+
 Compile Lineage2 project as x86 dll in release mod (default), inject it into l2.exe using ExtremeInjector, or alternatives. The default Dump path is C:/SDK_GEN
 
 Right now a work in progress, can generate SDK of Lineage 2 Gracia Final with basic, core and engine working(other packages not tested yet). (If you have trouble with MACROS like "CreateWindow", 
