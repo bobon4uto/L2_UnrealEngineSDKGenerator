@@ -54919,7 +54919,7 @@ void USelectDeliverWnd::STATIC_OnRegisterEvent()
 
 // Function Interface.ConsoleWnd.HandleDlgOk
 // (Final, Iterator, Latent, Singular, Net, Simulated, Exec, Operator, Static, HasOptionalParms, Const)
-
+/*
 void UConsoleWnd::STATIC_HandleDlgOk()
 {
 	static auto fn = UObject::FindObject<UFunction>("Function Interface.ConsoleWnd.HandleDlgOk");
@@ -54932,14 +54932,14 @@ void UConsoleWnd::STATIC_HandleDlgOk()
 
 	fn->FunctionFlags = flags;
 }
-
+*/
 
 // Function Interface.ConsoleWnd.OnEvent
 // (Final, Iterator, Latent, PreOperator, Singular, Operator, Static, Const)
 // Parameters:
 // int                            Event_ID                       (Parm)
 // struct FString                 param                          (Parm, NeedCtorLink)
-
+/*
 void UConsoleWnd::STATIC_OnEvent(int Event_ID, const struct FString& param)
 {
 	static auto fn = UObject::FindObject<UFunction>("Function Interface.ConsoleWnd.OnEvent");
@@ -54954,11 +54954,11 @@ void UConsoleWnd::STATIC_OnEvent(int Event_ID, const struct FString& param)
 
 	fn->FunctionFlags = flags;
 }
-
+*/
 
 // Function Interface.ConsoleWnd.OnLoad
 // (Final, Net, Operator, Static, Const)
-
+/*
 void UConsoleWnd::STATIC_OnLoad()
 {
 	static auto fn = UObject::FindObject<UFunction>("Function Interface.ConsoleWnd.OnLoad");
@@ -54971,11 +54971,11 @@ void UConsoleWnd::STATIC_OnLoad()
 
 	fn->FunctionFlags = flags;
 }
-
+*/
 
 // Function Interface.ConsoleWnd.OnRegisterEvent
 // (Final, Iterator, PreOperator, Singular, Operator, Static, Const)
-
+/*
 void UConsoleWnd::STATIC_OnRegisterEvent()
 {
 	static auto fn = UObject::FindObject<UFunction>("Function Interface.ConsoleWnd.OnRegisterEvent");
@@ -54988,7 +54988,7 @@ void UConsoleWnd::STATIC_OnRegisterEvent()
 
 	fn->FunctionFlags = flags;
 }
-
+*/
 
 // Function Interface.QuestTreeDrawerWnd.OnShow
 // (Final, Defined, Iterator, Latent, PreOperator, Singular, Operator, Static, Const)

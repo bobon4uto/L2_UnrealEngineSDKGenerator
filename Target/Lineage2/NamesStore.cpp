@@ -24,7 +24,7 @@ TArray<FNameEntry*>* GlobalNames = nullptr;
 
 bool NamesStore::Initialize()
 {
-	auto address = FindPattern(GetModuleHandleW(L"core.dll"), reinterpret_cast<const unsigned char*>("\xA1\x00\x00\x00\x00\x8B\x88"), "x????xx");
+	auto address = FindPattern(GetModuleHandleW(L"Core.dll"), reinterpret_cast<const unsigned char*>("\xA1\x00\x00\x00\x00\x8B\x88"), "x????xx");
 	if (address == -1)
 	{
 		return false;

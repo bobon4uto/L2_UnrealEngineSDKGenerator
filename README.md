@@ -1,31 +1,41 @@
 # Lineage 2 SDK generation
-ABANDOED
-sorry for that it just takes too much time and effort. still you can use it it somewhat works. 
-I was trying to get hooks working, but got nowhere, still i think detours and code similar to this should work?
 
+I got back to the project but dont expect much.
+
+The hooking is solved now, you can hook ProcessEvent by doing what Main.cpp in Lineage2_mod is doing. Its basically making a dummy class that inherits UObject, creating ProcessEvent for it,  
+and replacing UObject ProcessEvent with new one. I realy thought `_asm pThis, ecx;` will work, but `this` can be on a stack and whateva :/
+Instead, I just use good old `*(void**)(&methodptr)`(but with cpp casts, same thing anyway) on ProcessEvent to slap it into vtable. Actually, previous approach worked untill I updated windows, so this one might break too! (gotta love undefined behaviour)  
+Anyway, if you want to hook something you need to do this:
 ```cpp
-typedef void(__thiscall* TUFunction)(L2_SDK::UObject*, L2_SDK::FFrame&, void* const);
+class UObjectClone : public UObject {
+private: void  hook_before(UFunction* Function, void* Parms, void* _some) {
+	// if you want something to happen before usual processing is done
+		auto name = this->GetFullName();
+		auto fnname = Function->GetFullName();
+		if (fnname.find("Tick") != std::string::npos) {
+			// do something every tick for every entity
+			return;
+		}
+	}
+public: void HookedProcessEvent(UFunction* Function, void* Parms, void* _some) {
+	//this was really tricky to get without an actual class, so thats the soluttion - just make a dummy class.
+		this->hook_before(Function, Parms, _some);
+		oldProcessEvent(this, Function, Parms, _some);
+		this->hook_after(Function,Parms, _some);
+	}
+private: void hook_after(UFunction* Function, void* Parms, void* _some) {
+		auto name = this->GetFullName();
+		auto fnname = Function->GetFullName();
+		// if you want something to happen after usual processing is done
+		if (this->IsA(APawn::StaticClass())) {
+			// do something only when its APawn 
+			UObject* Obj = static_cast<UObject*>(this);
+			APawn* pawn = static_cast<APawn*>(Obj);
+			cout << pawn->GetFullName() << endl;
+		}
+	}
 
-L2_SDK::UFunction* fnAFoxPC_PlayerTick = nullptr;
-TUFunction PlayerTick_Original = nullptr;
-TUFunction p_tk_hook = nullptr;
-
-void __stdcall hkPlayerTick(L2_SDK::FFrame& Stack, void* const pResult)
-{
-	// get object pointer from ecx
-	L2_SDK::UObject* pThis = nullptr;
-	_asm mov pThis, ecx;
-
-	Beep(1000, 500);
-	// confirm event is hooked
-
-	// execute original event (works like expected)
-	SlimDetoursInlineHook(FALSE, (PVOID*)&p_tk_hook, hkPlayerTick); // have no clue how to call original otherwise
-	PlayerTick_Original(pThis, Stack, pResult);
-	SlimDetoursInlineHook(TRUE, (PVOID*)&p_tk_hook, hkPlayerTick);
-
-}
-
+};
 ```
 
 Compile Lineage2 project as x86 dll in release mod (default), inject it into l2.exe using ExtremeInjector, or alternatives. The default Dump path is C:/SDK_GEN

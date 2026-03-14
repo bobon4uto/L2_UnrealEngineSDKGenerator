@@ -80,6 +80,10 @@ public:
 		return GetVFunction<void(__thiscall *)(UObject*, class UFunction*, void*, void*)>(this, 4)(this, function, parms, nullptr);
 	}
 
+	auto GetProcessEvent()
+	{
+		return GetVFunction<void(__thiscall*)(UObject*, class UFunction*, void*, void*)>(this, 4);
+	}
 
 	void EndState();
 	void BeginState();

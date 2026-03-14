@@ -3,7 +3,12 @@
 #ifdef _MSC_VER
 	#pragma pack(push, 0x4)
 #endif
-
+#include <iostream>
+#include <thread>
+#include <chrono>
+#include <vector>
+#include <mutex>
+#include <atomic>
 #include "../SDK.hpp"
 
 namespace L2_SDK
@@ -5026,6 +5031,7 @@ struct FString AActor::ConsoleCommand(const struct FString& Command)
 {
 	static auto fn = UObject::FindObject<UFunction>("Function Engine.Actor.ConsoleCommand");
 
+	std::cout << "cmd!!";
 	AActor_ConsoleCommand_Params params;
 	params.Command = Command;
 
