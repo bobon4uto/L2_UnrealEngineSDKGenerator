@@ -57,13 +57,13 @@ public:
 		return Data[i];
 	}
 
-public:
+private:
 	T* Data;
 	int32_t Count;
 	int32_t Max;
 };
 
-struct FString : public TArray<wchar_t>
+struct FString : private TArray<wchar_t>
 {
 	inline FString()
 	{

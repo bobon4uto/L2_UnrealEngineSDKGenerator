@@ -99,27 +99,38 @@ float gfunc(MetaActor* ma) {
 }
 
 
-
 void mod_hook_before(UObject *pThis, UFunction *Function, void *Parms,
                      void *_some) {
 
   auto name = pThis->GetFullName();
   auto fn = Function->GetFullName();
+  if (
+      is(fn, "GetEffTargetLocation")
+      ) {
+    return;
+  }
 
-  if ( pThis->IsA(AGameInfo::StaticClass()) ) {
-  } else if ( pThis->IsA(AGameReplicationInfo::StaticClass()) ) {
-  } else if ( pThis->IsA(ALineagePlayerController::StaticClass()) ) {
-  } else if ( pThis->IsA(AActor::StaticClass()) ) {
+   if ( pThis->IsA(AActor::StaticClass()) ) {
     AActor* self =  static_cast<AActor*> (pThis);
-    // put any logic there, eg 
-    // ```cpp
-    // if (is(name, "absorb") 
-    //   &&is(fn,"EndState")
-    // ) {
-    //   MetaActor* self_ma = get_ma(self->Owner);
-    //   self_ma->target_scale *=1.2;
-    // }
-    // ```
+
+    if (is(name, "FFighter")){
+      //cout << name << "!!"<< fn<<"\n";
+    }
+    //cout << name << "!!"<< fn<<"\n";
+    if (is(name, "p_u002")
+        &&is(fn,".BeginPlay")
+        ) {
+      if (self->Owner) {
+        if (self->Owner->bPlayerPawn) {
+          //cout << name << "|" << fn << "|"<<self->Owner->GetFullName() << "\n";
+          MetaActor* self_ma =  get_ma(self->Owner);
+          self_ma->target_scale *=2.0f;
+          cout << self_ma->target_scale << "\n";
+
+        }
+
+      }
+    }
   }
 
   // sorry guys, I'm not cpp guy
@@ -134,6 +145,9 @@ void mod_hook_before(UObject *pThis, UFunction *Function, void *Parms,
   if (is(name, "InteractionMaster") || is(name, "Canvas") || is(fn, "Tick") ||
       is(fn, "Timer") || is(fn, "GetEffTargetLocation") ||
       is(fn, "ChangeSize") || is(fn, "BaseChange")) {
+
+
+
     return;
   }
 

@@ -11,18 +11,18 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Target\Lineage2_mod\Main.cpp" />
-    <ClCompile Include="Target\Lineage2_mod\SDK\L2_Basic.cpp" />
-    <ClCompile Include="Target\Lineage2_mod\SDK\L2_Core_functions.cpp" />
-    <ClCompile Include="Target\Lineage2_mod\SDK\L2_Engine_functions.cpp" />
+    <ClCompile Include="Target\Lineage2_hook\Main.cpp" />
+    <ClCompile Include="Target\Lineage2_hook\SDK\L2_Basic.cpp" />
+    <ClCompile Include="Target\Lineage2_hook\SDK\L2_Core_functions.cpp" />
+    <ClCompile Include="Target\Lineage2_hook\SDK\L2_Engine_functions.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Target\Lineage2_mod\SDK.hpp" />
+    <ClInclude Include="Target\Lineage2_hook\SDK.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{8211C36A-9BD0-4C0D-B226-3D22001C78F4}</ProjectGuid>
+    <ProjectGuid>{A7D92F32-CE03-4BF4-90F1-27359C7AC35A}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>Lineage2_mod</RootNamespace>
+    <RootNamespace>Lineage2_hook</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.26100.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />

@@ -1,0 +1,11 @@
+build
+Main.exp
+Main.lib
+Main.obj
+mod.exp
+mod.lib
+mod.dll
+out.dll
+out.lib
+out.exp
+tags

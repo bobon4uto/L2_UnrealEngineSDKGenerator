@@ -37,6 +37,7 @@ private: void hook_after(UFunction* Function, void* Parms, void* _some) {
 
 };
 ```
+Right now I made it so hooks have minimal implementation for loading dll, and you have to write `lm` in game chat to load lineage2_mod.dll. This allows hot reloading.
 
 Compile Lineage2 project as x86 dll in release mod (default), inject it into l2.exe using ExtremeInjector, or alternatives. The default Dump path is C:/SDK_GEN
 

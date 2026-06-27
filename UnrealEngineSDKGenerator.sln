@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.13.35828.75 d17.13
+VisualStudioVersion = 17.13.35828.75
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Lineage2", "Lineage2.vcxproj", "{A89E8CBC-C781-4B17-B771-EB556A43D12D}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Lineage2_mod", "Lineage2_mod.vcxproj", "{8211C36A-9BD0-4C0D-B226-3D22001C78F4}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Lineage2_hook", "Lineage2_hook.vcxproj", "{A7D92F32-CE03-4BF4-90F1-27359C7AC35A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,6 +33,14 @@ Global
 		{8211C36A-9BD0-4C0D-B226-3D22001C78F4}.Release|x64.Build.0 = Release|Win32
 		{8211C36A-9BD0-4C0D-B226-3D22001C78F4}.Release|x86.ActiveCfg = Release|Win32
 		{8211C36A-9BD0-4C0D-B226-3D22001C78F4}.Release|x86.Build.0 = Release|Win32
+		{A7D92F32-CE03-4BF4-90F1-27359C7AC35A}.Debug|x64.ActiveCfg = Debug|Win32
+		{A7D92F32-CE03-4BF4-90F1-27359C7AC35A}.Debug|x64.Build.0 = Debug|Win32
+		{A7D92F32-CE03-4BF4-90F1-27359C7AC35A}.Debug|x86.ActiveCfg = Debug|Win32
+		{A7D92F32-CE03-4BF4-90F1-27359C7AC35A}.Debug|x86.Build.0 = Debug|Win32
+		{A7D92F32-CE03-4BF4-90F1-27359C7AC35A}.Release|x64.ActiveCfg = Release|Win32
+		{A7D92F32-CE03-4BF4-90F1-27359C7AC35A}.Release|x64.Build.0 = Release|Win32
+		{A7D92F32-CE03-4BF4-90F1-27359C7AC35A}.Release|x86.ActiveCfg = Release|Win32
+		{A7D92F32-CE03-4BF4-90F1-27359C7AC35A}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
