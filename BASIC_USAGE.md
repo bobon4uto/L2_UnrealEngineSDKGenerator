@@ -19,6 +19,8 @@ clone https://bitbucket.org/l2jserver/l2j-server-cli.git, build it, extract targ
 Install git here: https://git-scm.com/install/windows
 ### Visual C++
 If you played Lineage 2 or other games before, you probably already have it
+I cant find where I myself installed it, but here's what microsoft provides:
+https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?view=msvc-170#latest-supported-redistributable-version
 ### Visual Studio 2017+
 You can install any version past 2017, but you need to add additional tool in installation, specifically `MSVC version 141`.
 If you forgor to check it you can always come back:
