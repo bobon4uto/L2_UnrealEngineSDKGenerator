@@ -1,6 +1,6 @@
 # Lineage 2 SDK generation
 
-If you just want to USE already generated SDK, here is the [Tutorial](.\BASIC_USAGE.md).
+If you just want to USE already generated SDK, here is the [Tutorial](BASIC_USAGE.md).
 I got back to the project but dont expect much.
 
 The hooking is solved now, you can hook ProcessEvent by doing what Main.cpp in Lineage2_mod is doing. Its basically making a dummy class that inherits UObject, creating ProcessEvent for it,  
