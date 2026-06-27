@@ -27,10 +27,12 @@ void execute_command(string cmd);
 
 
 typedef void(* tModFn)(UObject* pThis, UFunction* Function, void* Parms, void* _some);
+typedef void(*tModCleanupFn)();
 HINSTANCE hleb = nullptr;
 const char* dllPath;
 static tModFn mod_hook_before = nullptr;
 static tModFn mod_hook_after = nullptr;
+static tModCleanupFn mod_cleanup = nullptr;
 
 
 
@@ -123,7 +125,7 @@ void LoadMod() {
 	//std::cout << "\nwill be loaded if you write lm in chat\n";
 
 	if (!hleb) {
-		std::cout << "loading dll: " << dllPath << L"\n";
+		std::cout << "loading dll: " << dllPath << "\n";
 		hleb = LoadLibraryA(dllPath);
 	}
 	else {
@@ -139,14 +141,22 @@ void LoadMod() {
 		if (!mod_hook_after) {
 			cout << "failed to get the mod_hook_after\n";
 		}
+		mod_cleanup = (tModCleanupFn)GetProcAddress(hleb, "mod_cleanup");
+		if (!mod_cleanup) {
+			cout << "failed to get the mod_cleanup\n";
+		}
 	} else {
 		cout << "failed to load the mod\n";
 	}
 }
 void UnloadMod() {
+	if (mod_cleanup) {
+		mod_cleanup();
+	}
 	if (hleb) {
 		mod_hook_before = nullptr;
 		mod_hook_after = nullptr;
+		mod_cleanup = nullptr;
 		assert(FreeLibrary(hleb));
 		hleb = nullptr;
 	} else {
@@ -314,7 +324,7 @@ DWORD WINAPI OnAttach(LPVOID lpParameter)
 		CUSTOM_MOD_DLL_PATH;
 #endif
 	std::cout << dllPath;
-	std::cout << "\nwill be loaded if you write lm in chat\n";
+	std::cout << "\nwill be loaded if you write `lm` in chat\n";
 
 
 	std::cout << "=======================================\n";

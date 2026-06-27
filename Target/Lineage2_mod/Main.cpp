@@ -17,6 +17,7 @@ __declspec(dllexport) void mod_hook_before(UObject *pThis, UFunction *Function,
                                            void *Parms, void *_some);
 __declspec(dllexport) void mod_hook_after(UObject *pThis, UFunction *Function,
                                           void *Parms, void *_some);
+__declspec(dllexport) void mod_cleanup();
 }
 
 // helper - find if string contains part
@@ -84,7 +85,7 @@ float gfunc(MetaActor* ma) {
   float target_scale = ma->target_scale;
   float diff = target_scale-actual_scale;
   float proportion = target_scale/actual_scale;
-  return actual_scale + ((target_scale-actual_scale)/100);
+  return actual_scale + ((target_scale-actual_scale)/1000);
   
   if (proportion > 1.1) {
     ma->is_growing = true;
@@ -93,7 +94,7 @@ float gfunc(MetaActor* ma) {
     ma->is_growing = false;
   }
   if (ma->is_growing) {
-  return actual_scale + ((target_scale-actual_scale)/100);
+  return actual_scale + ((target_scale-actual_scale)/1000);
   }
   return actual_scale;
 }
@@ -113,8 +114,8 @@ void mod_hook_before(UObject *pThis, UFunction *Function, void *Parms,
     AActor* self =  static_cast<AActor*> (pThis);
     // put any logic there, eg 
     // ```cpp
-    // if (is(name, "absorb") 
-    //   &&is(fn,"EndState")
+    // if (is(name, "wh_heal_ta") 
+    //   &&is(fn,".BeginPlay")
     // ) {
     //   MetaActor* self_ma = get_ma(self->Owner);
     //   self_ma->target_scale *=1.2;
@@ -151,6 +152,12 @@ void mod_hook_after(UObject *pThis, UFunction *Function, void *Parms,
   } else if ( pThis->IsA(AActor::StaticClass()) ) {
     AActor* self =  static_cast<AActor*> (pThis);
   }
+}
+void mod_cleanup() {
+    for (auto it = ma_map.begin(); it != ma_map.end(); ++it) {
+        it->second.actual_scale = 1.0f;
+        scale_control(it->second);
+    }
 }
 
 DWORD WINAPI OnAttach(LPVOID lpParameter) {
